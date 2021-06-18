@@ -39,7 +39,7 @@ function validatePassword(req, res, next) {
 
 function validateToken(req, res, next) {
   let token = req.headers.authorization;
-  token = token.slice(7);
+  token = token?.slice(7);
   if (!token) {
     next("Authorization token not provided");
   }

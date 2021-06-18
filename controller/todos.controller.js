@@ -2,9 +2,8 @@ const Todos = require("../model/todos.service");
 
 async function createTodos(req, res, next) {
   try {
-    const { collection, title, description, status } = req.body;
+    const { title, description, status } = req.body;
     const todos = await Todos.forge({
-      collection,
       title,
       description,
       status,
@@ -22,7 +21,7 @@ async function createTodos(req, res, next) {
         next(err);
       });
 
-    res.status(HttpStatus.OK).json(todos);
+    res.status(200).json(todos);
   } catch (err) {
     next(err);
   }
@@ -32,7 +31,7 @@ async function listTodos(req, res, next) {
   try {
     const todos = await Todos.where({ user: req.user.id })
       .fetchAll({
-        columns: ["id", "collection", "title", "description", "status", "user"],
+        columns: ["id", "title", "description", "status", "user"],
         require: false,
       })
       .then((data) => {
@@ -41,10 +40,8 @@ async function listTodos(req, res, next) {
       .catch((err) => {
         next("Invalid username");
       });
-
-    res.status(200).json(todos);
   } catch (err) {
-    next("Database Error");
+    next(err);
   }
 }
 
@@ -76,7 +73,7 @@ function updateTodo(req, res, next) {
     )
     .then((result) => {
       res.json({
-        msg: "Task updated",
+        msg: result,
       });
     })
     .catch((err) => {

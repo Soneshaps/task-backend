@@ -30,6 +30,7 @@ async function getUser(req, res, next) {
       .then((data) => {
         req.user = {
           id: data.get("id"),
+          username: data.get("username"),
           email: data.get("email"),
           password: data.get("password"),
         };
@@ -46,6 +47,7 @@ async function getUser(req, res, next) {
 function loginUser(req, res, next) {
   res.status(200).json({
     token: req.user.token,
+    username: req.user.username,
     id: req.user.id,
     email: req.user.email,
   });

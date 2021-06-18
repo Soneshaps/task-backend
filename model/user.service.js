@@ -20,7 +20,7 @@ const Users = bookshelf.model(
     },
     getUser: function (email) {
       return this.where({ email: email }).fetch({
-        column: ["id", "email", "password"],
+        column: ["id", "username", "email", "password"],
         require: false,
       });
     },

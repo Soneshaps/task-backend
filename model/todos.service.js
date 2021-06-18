@@ -6,9 +6,8 @@ const Todos = bookshelf.model(
     tableName: "todos",
   },
   {
-    addTodo: function (collection, title, description, status, id) {
+    addTodo: function (title, description, status, id) {
       return this.forge({
-        collection: collection,
         title: title,
         description: description,
         status: status,
